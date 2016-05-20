@@ -6,28 +6,35 @@ import Chart from "chart.js";
 
 export default {
 
-    template: '<canvas id="myChart" width="600" height="400"></canvas>',
-
-    props: ['labels', 'values', 'color'],
+    template: ` 
+             <div>
+                <canvas id="myChart" width="600" height="400" v-el:canvas ></canvas>
+                <div class="legend">{{{ legend }}}</div>
+             </div>`,
 
     props: {
-    
+
         labels: {},
         values: {},
         color: {
-            default: "rgba(220,220,220,0.2)"
+            default: "rgba(220,200,200,0.2)"
         }
     },
 
-    ready() {
+    data() {
+        return {
+            legend: ''
+        };
+    },
 
-        var context = this.$el.getContext('2d');
+    ready() {
 
         var data = {
             labels: this.labels,
             datasets: [
                 {
-                    fillColor: this.color,
+                    label: 'Monthly Data',
+                    fillColor: "#000000",
                     strokeColor: "rgba(220,220,220,1)",
                     pointColor: "rgba(220,220,220,1)",
                     pointStrokeColor: "#fff",
@@ -38,6 +45,11 @@ export default {
             ]
         };
 
-        new Chart(context, {type: 'line', data});
+
+        var context = this.$els.canvas.getContext('2d');
+
+        const chart = new Chart(context, {type: 'line', data});
+
+        chart.generateLegend();
     }
 }

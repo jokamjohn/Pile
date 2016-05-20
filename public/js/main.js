@@ -23964,56 +23964,61 @@ setTimeout(function () {
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":43}],45:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _template$props$props;
-
-var _chart = require('chart.js');
+var _chart = require("chart.js");
 
 var _chart2 = _interopRequireDefault(_chart);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
-                                                                                                                                                                                                                   * Created by jokamjohn on 5/20/2016.
-                                                                                                                                                                                                                   */
+exports.default = {
 
-exports.default = (_template$props$props = {
+    template: " \n             <div>\n                <canvas id=\"myChart\" width=\"600\" height=\"400\" v-el:canvas ></canvas>\n                <div class=\"legend\">{{{ legend }}}</div>\n             </div>",
 
-    template: '<canvas id="myChart" width="600" height="400"></canvas>',
+    props: {
 
-    props: ['labels', 'values', 'color']
+        labels: {},
+        values: {},
+        color: {
+            default: "rgba(220,200,200,0.2)"
+        }
+    },
 
-}, _defineProperty(_template$props$props, 'props', {
+    data: function data() {
+        return {
+            legend: ''
+        };
+    },
+    ready: function ready() {
 
-    labels: {},
-    values: {},
-    color: {
-        default: "rgba(220,220,220,0.2)"
+        var data = {
+            labels: this.labels,
+            datasets: [{
+                label: 'Monthly Data',
+                fillColor: "#000000",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: this.values
+            }]
+        };
+
+        var context = this.$els.canvas.getContext('2d');
+
+        var chart = new _chart2.default(context, { type: 'line', data: data });
+
+        chart.generateLegend();
     }
-}), _defineProperty(_template$props$props, 'ready', function ready() {
-
-    var context = this.$el.getContext('2d');
-
-    var data = {
-        labels: this.labels,
-        datasets: [{
-            fillColor: this.color,
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: this.values
-        }]
-    };
-
-    new _chart2.default(context, { type: 'line', data: data });
-}), _template$props$props);
+}; /**
+    * Created by jokamjohn on 5/20/2016.
+    */
 
 },{"chart.js":1}],46:[function(require,module,exports){
 "use strict";
