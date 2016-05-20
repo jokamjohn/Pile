@@ -8,17 +8,26 @@ export default {
 
     template: '<canvas id="myChart" width="600" height="400"></canvas>',
 
-    props: [ 'labels', 'values'],
+    props: ['labels', 'values', 'color'],
+
+    props: {
+    
+        labels: {},
+        values: {},
+        color: {
+            default: "rgba(220,220,220,0.2)"
+        }
+    },
 
     ready() {
 
-        var context = document.querySelector('#myChart').getContext('2d');
+        var context = this.$el.getContext('2d');
 
         var data = {
             labels: this.labels,
             datasets: [
                 {
-                    fillColor: "rgba(220,220,220,0.2)",
+                    fillColor: this.color,
                     strokeColor: "rgba(220,220,220,1)",
                     pointColor: "rgba(220,220,220,1)",
                     pointStrokeColor: "#fff",

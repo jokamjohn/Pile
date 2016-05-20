@@ -23970,40 +23970,50 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _template$props$props;
+
 var _chart = require('chart.js');
 
 var _chart2 = _interopRequireDefault(_chart);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = {
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+                                                                                                                                                                                                                   * Created by jokamjohn on 5/20/2016.
+                                                                                                                                                                                                                   */
+
+exports.default = (_template$props$props = {
 
     template: '<canvas id="myChart" width="600" height="400"></canvas>',
 
-    props: ['labels', 'values'],
+    props: ['labels', 'values', 'color']
 
-    ready: function ready() {
+}, _defineProperty(_template$props$props, 'props', {
 
-        var context = document.querySelector('#myChart').getContext('2d');
-
-        var data = {
-            labels: this.labels,
-            datasets: [{
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: this.values
-            }]
-        };
-
-        new _chart2.default(context, { type: 'line', data: data });
+    labels: {},
+    values: {},
+    color: {
+        default: "rgba(220,220,220,0.2)"
     }
-}; /**
-    * Created by jokamjohn on 5/20/2016.
-    */
+}), _defineProperty(_template$props$props, 'ready', function ready() {
+
+    var context = this.$el.getContext('2d');
+
+    var data = {
+        labels: this.labels,
+        datasets: [{
+            fillColor: this.color,
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: this.values
+        }]
+    };
+
+    new _chart2.default(context, { type: 'line', data: data });
+}), _template$props$props);
 
 },{"chart.js":1}],46:[function(require,module,exports){
 "use strict";
