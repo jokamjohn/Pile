@@ -1,30 +1,15 @@
 /**
  * Created by jokamjohn on 5/21/2016.
  */
-import Chart from "chart.js";
+import Graph from "../BaseGraph";
 
-export default {
-
-    template: `
-    <div>
-        <canvas id="chart" width="400" height="600" v-el:canvas></canvas>
-        
-        {{{ legend }}}
-        
-    </div>
-    `,
+export default Graph.extend({
 
     props: ['player', 'opponent'],
 
-    data () {
-        return {
-            legend: ''
-        };
-    },
-
     ready() {
 
-        var data = {
+        this.render({
 
             labels: ["Wins"],
 
@@ -47,16 +32,10 @@ export default {
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [this.opponent.wins,0]
+                    data: [this.opponent.wins, 0]
                 }
             ]
-        };
-
-        var context = this.$els.canvas.getContext('2d');
-
-        const chart = new Chart(context, {type: 'bar', data});
-
-        this.legend = chart.generateLegend();
+        });
     }
 
-}
+})

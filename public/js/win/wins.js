@@ -23964,32 +23964,67 @@ setTimeout(function () {
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":43}],45:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _chart = require('chart.js');
+var _vue = require("vue");
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _chart = require("chart.js");
 
 var _chart2 = _interopRequireDefault(_chart);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = {
+/**
+ * Created by jokamjohn on 5/21/2016.
+ */
+exports.default = _vue2.default.extend({
 
-    template: '\n    <div>\n        <canvas id="chart" width="400" height="600" v-el:canvas></canvas>\n        \n        {{{ legend }}}\n        \n    </div>\n    ',
-
-    props: ['player', 'opponent'],
+    template: "\n    <div>\n        <canvas id=\"chart\" width=\"400\" height=\"600\" v-el:canvas></canvas>\n        \n        {{{ legend }}}\n        \n    </div>\n    ",
 
     data: function data() {
         return {
             legend: ''
         };
     },
+
+
+    methods: {
+        render: function render(data) {
+            var context = this.$els.canvas.getContext('2d');
+
+            var chart = new _chart2.default(context, { type: 'bar', data: data });
+
+            this.legend = chart.generateLegend();
+        }
+    }
+});
+
+},{"chart.js":1,"vue":44}],46:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _BaseGraph = require('../BaseGraph');
+
+var _BaseGraph2 = _interopRequireDefault(_BaseGraph);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _BaseGraph2.default.extend({
+
+    props: ['player', 'opponent'],
+
     ready: function ready() {
 
-        var data = {
+        this.render({
 
             labels: ["Wins"],
 
@@ -24012,19 +24047,13 @@ exports.default = {
                 pointHighlightStroke: "rgba(220,220,220,1)",
                 data: [this.opponent.wins, 0]
             }]
-        };
-
-        var context = this.$els.canvas.getContext('2d');
-
-        var chart = new _chart2.default(context, { type: 'bar', data: data });
-
-        this.legend = chart.generateLegend();
+        });
     }
-}; /**
-    * Created by jokamjohn on 5/21/2016.
-    */
+}); /**
+     * Created by jokamjohn on 5/21/2016.
+     */
 
-},{"chart.js":1}],46:[function(require,module,exports){
+},{"../BaseGraph":45}],47:[function(require,module,exports){
 "use strict";
 
 var _vue = require("vue");
@@ -24049,6 +24078,6 @@ new _vue2.default({
     }
 });
 
-},{"./components/WinsGraph":45,"vue":44}]},{},[46]);
+},{"./components/WinsGraph":46,"vue":44}]},{},[47]);
 
 //# sourceMappingURL=wins.js.map
