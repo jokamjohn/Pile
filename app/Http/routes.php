@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('wins', function () {
+
+    $kagga = [ 'name' => 'kagga', 'wins' => 50];
+
+    $aysher = [ 'name' => 'aysher', 'wins' => 10];
+
+
+    return view('wins', compact('kagga', 'aysher'));
+});

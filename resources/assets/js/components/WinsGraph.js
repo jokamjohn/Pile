@@ -1,27 +1,22 @@
 /**
- * Created by jokamjohn on 5/20/2016.
+ * Created by jokamjohn on 5/21/2016.
  */
-
 import Chart from "chart.js";
 
 export default {
 
-    template: ` 
-             <div>
-                <canvas id="myChart" width="600" height="400" v-el:canvas ></canvas>
-                <div class="legend">{{{ legend }}}</div>
-             </div>`,
+    template: `
+    <div>
+        <canvas id="chart" width="400" height="600" v-el:canvas></canvas>
+        
+        {{{ legend }}}
+        
+    </div>
+    `,
 
-    props: {
+    props: ['player', 'opponent'],
 
-        labels: {},
-        values: {},
-        color: {
-            default: "rgba(220,200,200,0.2)"
-        }
-    },
-
-    data() {
+    data () {
         return {
             legend: ''
         };
@@ -30,36 +25,38 @@ export default {
     ready() {
 
         var data = {
-            labels: this.labels,
+
+            labels: ["Wins"],
+
             datasets: [
                 {
-                    label: 'Monthly Data',
-                    fillColor: "#000000",
+                    label: this.player.name,
+                    backgroundColor: "#000000",
                     strokeColor: "rgba(220,220,220,1)",
                     pointColor: "rgba(220,220,220,1)",
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: this.values
+                    data: [this.player.wins]
                 },
                 {
-                    label: ' Data',
-                    fill: false,
-                    strokeColor: "red",
+                    label: this.opponent.name,
+                    backgroundColor: "red",
+                    strokeColor: "rgba(220,220,220,1)",
                     pointColor: "rgba(220,220,220,1)",
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [ 20, 30, 50]
+                    data: [this.opponent.wins,0]
                 }
             ]
         };
 
-
         var context = this.$els.canvas.getContext('2d');
 
-        const chart = new Chart(context, {type: 'line', data});
+        const chart = new Chart(context, {type: 'bar', data});
 
-        chart.generateLegend();
+        this.legend = chart.generateLegend();
     }
+
 }
