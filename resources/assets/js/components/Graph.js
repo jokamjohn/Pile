@@ -34,13 +34,23 @@ export default {
             datasets: [
                 {
                     label: 'Monthly Data',
-                    fillColor: "#000000",
+                    backgroundColor: "red",
                     strokeColor: "rgba(220,220,220,1)",
                     pointColor: "rgba(220,220,220,1)",
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
                     data: this.values
+                },
+                {
+                    label: ' Data',
+                    fill: false,
+                    strokeColor: "red",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [ 20, 30, 50]
                 }
             ]
         };
