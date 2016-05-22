@@ -66,3 +66,17 @@ Route::get('/ajax', function () {
     
     return view('ajax');
 });
+
+Route::get('/dynamic', function () {
+    return view('revenueGraph');
+});
+
+Route::get('/api/dynamic', function () {
+
+    $range = request('range', 30);
+
+    $revenue = Performance::spanningDays($range)
+        ->pluck('revenue', 'created_at');
+
+    return $revenue;
+});
