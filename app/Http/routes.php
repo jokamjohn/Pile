@@ -20,9 +20,9 @@ Route::get('/', function () {
 
 Route::get('wins', function () {
 
-    $kagga = [ 'name' => 'kagga', 'wins' => 50];
+    $kagga = ['name' => 'kagga', 'wins' => 50];
 
-    $aysher = [ 'name' => 'aysher', 'wins' => 10];
+    $aysher = ['name' => 'aysher', 'wins' => 10];
 
 //    factory(\App\Performance::class)->create();
 
@@ -41,9 +41,28 @@ Route::get('/rev', function () {
     $revenue = Performance::thisYear()
         ->selectRaw('MONTHNAME(created_at) as month, sum(revenue) as revenue')
         ->groupBy('month')
-        ->pluck('revenue','month');
+        ->orderBy('created_at', 'ASC')
+        ->pluck('revenue', 'month');
 
     //dd($revenue);
 
     return view('revenue', compact('revenue'));
+});
+
+
+
+/**
+ * Return data to the endpoint
+ */
+Route::get('/api/revenue', function () {
+    return Performance::thisYear()
+        ->selectRaw('MONTHNAME(created_at) as month, sum(revenue) as revenue')
+        ->groupBy('month')
+        ->orderBy('created_at', 'ASC')
+        ->pluck('revenue', 'month');
+});
+
+Route::get('/ajax', function () {
+    
+    return view('ajax');
 });
