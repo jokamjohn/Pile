@@ -4,6 +4,7 @@
 import Vue from "vue";
 import Chart from "chart.js";
 
+//Parent Graph
 export default Vue.extend({
 
     template: `

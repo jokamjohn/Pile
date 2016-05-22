@@ -23980,6 +23980,7 @@ var _chart2 = _interopRequireDefault(_chart);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//Parent Graph
 /**
  * Created by jokamjohn on 5/21/2016.
  */
